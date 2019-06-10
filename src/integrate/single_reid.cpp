@@ -210,14 +210,14 @@ void task_save_file()
 
 int main(int argc, const char **argv) {
     //算法库初始化
-    if(!vlpr_init())
+/*    if(!vlpr_init())
     {
         cout<<"LPR_ALG init Fail!"<<endl;
         exit(-1);
     }else{
         cout<<"LPR_ALG init OK!"<<endl;
     }
-    
+*/
     pvpr=(PVPR)malloc(sizeof(VPR));
     
     pthread_mutex_init(&mutex_,NULL);
@@ -233,7 +233,11 @@ int main(int argc, const char **argv) {
         cout << "Read Server Configure Fail!" << endl;
     }
     Server svr;
-    svr.Post("/chpAnalyze", [](const Request &req, Response &res) {
+    svr.Post("/wkk", [](const Request &req, Response &res) {
+        std::cout << dump_headers(req.headers);
+        string body = "{\"ret\":\"ok\"}";
+        res.set_content(body, "application/json");
+/*
         Json::Value json_res;
         Json::StreamWriterBuilder writerBuilder;
         std::ostringstream os;
@@ -328,6 +332,7 @@ int main(int argc, const char **argv) {
         file_info.filename = file_name;
         file_info.lpr_res_json = body;
         g_file_queue.push(file_info);
+*/
     });
     
     thread_save_file = boost::thread(boost::bind(&task_save_file));

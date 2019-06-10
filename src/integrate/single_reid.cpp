@@ -235,6 +235,8 @@ int main(int argc, const char **argv) {
     Server svr;
     svr.Post("/wkk", [](const Request &req, Response &res) {
         std::cout << dump_headers(req.headers);
+        std::cout << std::endl;
+        std::cout << req.body.substr(0,200);
         string body = "{\"ret\":\"ok\"}";
         res.set_content(body, "application/json");
 /*

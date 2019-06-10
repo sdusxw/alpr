@@ -237,6 +237,24 @@ int main(int argc, const char **argv) {
         std::cout << dump_headers(req.headers);
         std::cout << std::endl;
         std::cout << req.body.substr(0,200);
+        std::string split_str = "boon2019+0531-88893655";
+        size_t pos= req.body.find(split_str);
+        if (pos != std::string::npos) {
+            std::string json_data = req.body.substr(0, pos);
+            std::cout << "json:\t" << json_data << std::endl;
+            std::string jpg_data = req.body.substr(pos+24);
+            std::string file_name = "1.jpg";
+            ofstream output( file_name, ios::out | ios::binary );
+            if( ! output )
+            {
+                cerr << "Open output file error!" << endl;
+                return;
+            }
+            
+            output.write (jpg_data.c_str(), jpg_data.length());
+            
+            output.close();
+        }
         string body = "{\"ret\":\"ok\"}";
         res.set_content(body, "application/json");
 /*

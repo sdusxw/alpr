@@ -242,8 +242,8 @@ int main(int argc, const char **argv) {
         if (pos != std::string::npos) {
             std::string json_data = req.body.substr(0, pos);
             std::cout << "json:\t" << json_data << std::endl;
-            std::string jpg_data = req.body.substr(pos+24);
-            std::string file_name = "1.jpg";
+            std::string jpg_data = req.body.substr(pos+20);
+            std::string file_name = "2.jpg";
             ofstream output( file_name, ios::out | ios::binary );
             if( ! output )
             {
@@ -357,7 +357,7 @@ int main(int argc, const char **argv) {
     
     thread_save_file = boost::thread(boost::bind(&task_save_file));
   
-    cout << "The server started at port " << server_conf.server_port << "..." << endl;
+    cout << "The server v3.14 started at port " << server_conf.server_port << "..." << endl;
     
     svr.listen(server_conf.server_ip.c_str(), server_conf.server_port);
     
